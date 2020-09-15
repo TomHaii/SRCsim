@@ -139,15 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="bus.h" />
-    <ClInclude Include="disassembler.h" />
-    <ClInclude Include="src.h" />
+    <ClInclude Include="core\bus.h" />
+    <ClInclude Include="core\src.h" />
+    <ClInclude Include="disassembler\disassembler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bus.cpp" />
-    <ClCompile Include="disassembler.cpp" />
+    <ClCompile Include="core\bus.cpp" />
+    <ClCompile Include="core\src.cpp" />
+    <ClCompile Include="disassembler\disassembler.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "src.h"
+#include "core/src.h"
 
 int main() {
 	SRC* src = new SRC();
