@@ -10,12 +10,18 @@ void SRC::execute(uint32_t li)
 	decode(li);
 	uint32_t opcode = fetched.opcode;
 	
+
+	//tests
+
+	signed int c2 = extend_c2_sign(fetched.c2);
+	std::cout << "c2 value " << std::dec << c2 << std::endl;
+
 	//for debugging
-	std::bitset<32> y(fetched.value);
-	std::bitset<32> x(opcode);
-	std::cout << "Fetched value " << std::hex << fetched.value << std::endl;
-	std::cout << "Binary representation of value " << y << std::endl;
-	std::cout << "Binary representation of opcode " << x << std::endl;
+	//std::bitset<32> y(fetched.value);
+	//std::bitset<32> x(opcode);
+	//std::cout << "Fetched value " << std::hex << fetched.value << std::endl;
+	//std::cout << "Binary representation of value " << y << std::endl;
+	//std::cout << "Binary representation of opcode " << x << std::endl;
 
 	std::cout << "Execute " << std::dec << fetched.opcode << std::endl;
 	switch (opcode) {
@@ -145,9 +151,12 @@ void SRC::decode(uint32_t addr)
 	fetched.cond = addr & 0x7;
 }
 
-int SRC::extend_sign(uint32_t n)
+signed int SRC::extend_c2_sign(uint32_t c2)
 {
-	return 0;
+	signed short sign = (c2 >> 16);
+	if(sign)
+		return c2 | 0xfffe0000;
+	return c2;
 }
 
 void SRC::NOP() {
@@ -184,15 +193,11 @@ void SRC::LA()
 {
 	uint32_t ra = fetched.ra;
 	uint32_t rb = fetched.rb;
-	uint32_t c2 = fetched.c2;
+	signed int c2 = extend_c2_sign(fetched.c2);
 	if (rb == 0)
 		registers[ra] = c2;
 	else
 		registers[ra] = c2 + registers[rb];
-	//sign extended here
-	signed short sign = (c2 >> 16);
-	if (sign)
-		registers[ra] = registers[ra] | 0xfffe0000;
 }
 
 void SRC::LAR()
@@ -204,8 +209,8 @@ void SRC::LAR()
 void SRC::BR()
 {
 	uint32_t cond = fetched.cond;
-	uint32_t rb_data = registers[fetched.rb];
-	uint32_t rc_data = registers[fetched.rc];
+	signed int rb_data = registers[fetched.rb];
+	signed int rc_data = registers[fetched.rc];
 	bool isCond = false;
 	switch (cond) {
 	case 1:
@@ -252,22 +257,22 @@ void SRC::EDI()
 
 void SRC::ADD()
 {
-	uint32_t rb_data = registers[fetched.rb];
-	uint32_t rc_data = registers[fetched.rc];
+	signed int rb_data = registers[fetched.rb];
+	signed int rc_data = registers[fetched.rc];
 	registers[fetched.ra] = rb_data + rc_data;
 }
 
 void SRC::ADDI()
 {
-	uint32_t rb_data = registers[fetched.rb];
-	int c2 = fetched.c2;
+	signed int rb_data = registers[fetched.rb];
+	signed int c2 = extend_c2_sign(fetched.c2);
 	registers[fetched.ra] = rb_data + c2;
 }
 
 void SRC::SUB()
 {
-	uint32_t rb_data = registers[fetched.rb];
-	uint32_t rc_data = registers[fetched.rc];
+	signed int rb_data = registers[fetched.rb];
+	signed int rc_data = registers[fetched.rc];
 	registers[fetched.ra] = rb_data - rc_data;
 
 }
@@ -287,38 +292,94 @@ void SRC::RI()
 
 void SRC::AND()
 {
+	signed int rb_data = registers[fetched.rb];
+	signed int rc_data = registers[fetched.rc];
+	registers[fetched.ra] = rb_data & rc_data;
 }
 
 void SRC::ANDI()
 {
+	signed int rb_data = registers[fetched.rb];
+	signed int c2 = extend_c2_sign(fetched.c2);
+	registers[fetched.ra] = rb_data & c2;
 }
 
 void SRC::OR()
 {
+	signed int rb_data = registers[fetched.rb];
+	signed int rc_data = registers[fetched.rc];
+	registers[fetched.ra] = rb_data | rc_data;
 }
 
 void SRC::ORI()
 {
+	signed int rb_data = registers[fetched.rb];
+	signed int c2 = extend_c2_sign(fetched.c2);
+	registers[fetched.ra] = rb_data | c2;
 }
 
 void SRC::NOT()
 {
+	registers[fetched.ra] = ~registers[fetched.rc];
 }
 
 void SRC::SHR()
 {
+	uint32_t rb_data = registers[fetched.rb];
+	uint32_t amount;
+	if (fetched.count != 0)
+		amount = fetched.count;
+	else
+		amount = registers[fetched.rc] & 0x1f;
+	for (uint32_t i = 0; i < amount; i++) {
+		rb_data = rb_data >> 1;
+	}
+	registers[fetched.ra] = (signed int) rb_data;
 }
 
 void SRC::SHRA()
 {
+	signed int rb_data = registers[fetched.rb];
+	uint32_t amount;
+	if (fetched.count != 0)
+		amount = fetched.count;
+	else
+		amount = registers[fetched.rc] & 0x1f;
+	for (uint32_t i = 0; i < amount; i++) {
+		rb_data = rb_data >> 1;
+	}
+
+	registers[fetched.ra] = rb_data;
+	
 }
 
 void SRC::SHL()
 {
+	uint32_t rb_data = registers[fetched.rb];
+	uint32_t amount;
+	if (fetched.count != 0)
+		amount = fetched.count;
+	else
+		amount = registers[fetched.rc] & 0x1f;
+	for (uint32_t i = 0; i < amount; i++) {
+		rb_data = rb_data << 1;
+	}
+	registers[fetched.ra] = (signed int) rb_data;
 }
 
 void SRC::SHC()
 {
+	//TODO
+	uint32_t rb_data = registers[fetched.rb];
+	uint32_t amount;
+	if (fetched.count != 0)
+		amount = fetched.count;
+	else
+		amount = registers[fetched.rc] & 0x1f;
+	for (uint32_t i = 0; i < amount; i++) {
+		rb_data = rb_data << 1;
+	}
+	registers[fetched.ra] = (signed int)rb_data;
 }
 
 void SRC::RFI()

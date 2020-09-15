@@ -15,7 +15,7 @@ public:
 
 private:
 	
-	std::array<int, 32> registers;
+	std::array<signed int, 32> registers;
 	uint32_t pc = 0x00000000;
 	uint32_t nPc = 0x00000004;
 	//struct instruction {
@@ -42,7 +42,7 @@ private:
 
 	instruction fetched;
 	void decode(uint32_t addr);
-	int extend_sign(uint32_t n);
+	signed int extend_c2_sign(uint32_t c2);
 
 private: //instructions
 
