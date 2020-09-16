@@ -2,10 +2,11 @@
 #include <cstdint>
 #include <string>
 #include <iostream>
-#include "bus.h"
-
+#include <array>
 //for debugging
 #include <bitset>
+
+class Bus;
 
 class SRC
 {
@@ -13,9 +14,19 @@ public:
 	SRC();
 	~SRC();
 
+public:
+
+	void execute(uint32_t li);
+
+	void connectBus(Bus* b) { bus = b; }
+
+	//FOR DEBUGGING ONLY
+	void print_registers();
+
 private:
 	
 	std::array<signed int, 32> registers;
+	Bus* bus = nullptr;
 	uint32_t pc = 0x00000000;
 	uint32_t nPc = 0x00000004;
 	//struct instruction {
@@ -52,13 +63,6 @@ private: //instructions
 	void SVI(); void RI(); void AND(); void ANDI(); void OR();
 	void ORI(); void NOT(); void SHR(); void SHRA(); void SHL();
 	void SHC(); void RFI(); void STOP();
-
-public:
-
-	void execute(uint32_t li);
-	
-	//FOR DEBUGGING ONLY
-	void print_registers();
 
 
 };

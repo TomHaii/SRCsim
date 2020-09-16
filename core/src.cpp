@@ -1,8 +1,14 @@
+#pragma once
 #include "src.h"
+#include "Bus.h"
 
 SRC::SRC() {
 	std::cout << "starting CPU" << std::endl;
 	for (auto &i: registers) i = 0x00000000;
+}
+
+SRC::~SRC()
+{
 }
 
 void SRC::execute(uint32_t li)
@@ -124,6 +130,16 @@ void SRC::execute(uint32_t li)
 	}
 	
 }
+//
+//uint32_t SRC::read32(uint32_t addr)
+//{
+//	return bus->read32(addr);
+//}
+//
+//void SRC::write32(uint32_t addr, uint32_t data)
+//{
+//	bus->write32(addr, data);
+//}
 
 void SRC::print_registers()
 {
@@ -183,6 +199,8 @@ void SRC::LDR()
 void SRC::ST()
 {
 	//put the value of the register RA at MEM[c2]
+	std::cout << "Executing ST" << std::endl;
+	bus->write32(fetched.c2, registers[fetched.ra]);
 }
 
 void SRC::STR()
