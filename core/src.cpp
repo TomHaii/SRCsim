@@ -184,10 +184,10 @@ void SRC::LD() {
 	uint32_t ra = fetched.ra;
 	uint32_t rb = fetched.rb;
 	if (rb == 0) {
-		//access the memory and get the value inside the address c2
+		registers[ra] = bus->read32(fetched.c2);
 	}
 	else {
-		//access the memory and get the value inside the address c2+data_rb
+		registers[ra] = bus->read32(fetched.c2 + registers[rb]);
 	}
 }
 

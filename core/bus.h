@@ -24,7 +24,7 @@ private:
 	};
 
 	//temporary fake ram
-	std::map<uint32_t, signed int> ram;
+	std::map<uint32_t, uint8_t> ram;
 	//uint8_t fakeRam[1024 * 1024];
 	//std::array<uint8_t, 1024 * 1024> fakeRam;
 //	std::array<MEM, 2 * 1000 * 1024> ram;  //fake 2mb ram
@@ -41,7 +41,7 @@ public:
 
 	//for debugging
 
-	void print_memory(uint32_t addr);
+	void print_memory(uint32_t addr, int size);
 	void tests();
 };
 

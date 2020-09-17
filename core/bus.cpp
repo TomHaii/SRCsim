@@ -38,14 +38,14 @@ void Bus::write32(uint32_t addr, uint32_t data)
 {
 	if (addr >= 0x00000000 && addr <= 0xffffffff) {
 		ram.insert(std::make_pair(addr, data));
-		ram_index++;
+		ram_index++;  
 	}
 }
 
 
 uint8_t Bus::read8(uint32_t addr, bool readOnly)
 {
-	std::map<uint32_t, signed int>::iterator it;
+	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
 		if (it->first == addr)
 			return it->second;
@@ -53,11 +53,17 @@ uint8_t Bus::read8(uint32_t addr, bool readOnly)
 	return 0;
 }
 
-void Bus::print_memory(uint32_t addr)
+void Bus::print_memory(uint32_t addr, int size)
 {
-	std::map<uint32_t, signed int>::iterator it;
+	int amount_to_print = size;
+	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
 		if (it->first == addr) {
+			signed int n = 0;
+			do {
+				uint8_t temp = it->second;
+				amount_to_print--;
+			} while (amount_to_print != 0);
 			std::cout << "Value at " << std::hex << addr << " is " << std::dec << it->second << std::endl;
 			return;
 		}
@@ -96,8 +102,12 @@ void Bus::tests()
 
 	//st tests
 	cpu.execute(0x2881ffff);
-	cpu.execute(0x18800000);
-	print_memory(1);
+	cpu.execute(0x188001ff);
+	cpu.execute(0x084001ff);
+	//cpu.execute(0x188001ff);
+	cpu.print_registers();
+
+	print_memory(0x1ff);
 }
 
 uint16_t Bus::read16(uint32_t addr, bool readOnly) {
