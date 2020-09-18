@@ -147,7 +147,6 @@
     <ClCompile Include="core\bus.cpp" />
     <ClCompile Include="core\src.cpp" />
     <ClCompile Include="disassembler\disassembler.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
