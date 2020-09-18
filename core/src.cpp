@@ -15,13 +15,18 @@ void SRC::execute(uint32_t li)
 {
 	decode(li);
 	uint32_t opcode = fetched.opcode;
-	
+	bool valid = true;
+
+	if (opcode < 0 || opcode > 31 || opcode == 7 || opcode == 18 || opcode == 19 || opcode == 25) {
+		std::cout << "Invalid opcode" << std::endl;
+		return;
+	}
+
+	//bus->write32(pc, li);
 
 	//tests
-
-	signed int c2 = extend_c2_sign(fetched.c2);
-	std::cout << "c2 value " << std::dec << c2 << std::endl;
-
+	//signed int c2 = extend_c2_sign(fetched.c2);
+	//std::cout << "c2 value " << std::dec << c2 << std::endl;
 	//for debugging
 	//std::bitset<32> y(fetched.value);
 	//std::bitset<32> x(opcode);
@@ -29,7 +34,8 @@ void SRC::execute(uint32_t li)
 	//std::cout << "Binary representation of value " << y << std::endl;
 	//std::cout << "Binary representation of opcode " << x << std::endl;
 
-	std::cout << "Execute " << std::dec << fetched.opcode << std::endl;
+	std::cout << "Executing " << std::dec << fetched.opcode << std::endl;
+	
 	switch (opcode) {
 		case 0:
 			NOP();
@@ -128,6 +134,10 @@ void SRC::execute(uint32_t li)
 			STOP();
 			break;
 	}
+
+	//increasing pc
+	pc = nPc;
+	nPc += 4;
 	
 }
 //
@@ -167,6 +177,15 @@ void SRC::decode(uint32_t addr)
 	fetched.cond = addr & 0x7;
 }
 
+signed int SRC::extend_c1_sign(uint32_t c1)
+{
+	signed short sign = (c1 >> 21);
+	if (sign)
+		return c1 | 0xffc00000;
+	return c1;
+}
+
+
 signed int SRC::extend_c2_sign(uint32_t c2)
 {
 	signed short sign = (c2 >> 16);
@@ -175,10 +194,7 @@ signed int SRC::extend_c2_sign(uint32_t c2)
 	return c2;
 }
 
-void SRC::NOP() {
-	pc = nPc;
-	nPc = nPc + 4;
-}
+void SRC::NOP() { return; }
 
 void SRC::LD() {
 	uint32_t ra = fetched.ra;
@@ -194,17 +210,19 @@ void SRC::LD() {
 void SRC::LDR()
 {
 	//access the memory and get the value inside the address c1+nPC
+	signed int sC1 = extend_c1_sign(fetched.c1);
+	registers[fetched.ra] = bus->read32(sC1 + nPc);
 }
 
 void SRC::ST()
 {
-	//put the value of the register RA at MEM[c2]
-	std::cout << "Executing ST" << std::endl;
 	bus->write32(fetched.c2, registers[fetched.ra]);
 }
 
 void SRC::STR()
 {
+	signed int sC1 = extend_c1_sign(fetched.c1);
+	bus->write32(sC1 + nPc, registers[fetched.ra]);
 }
 
 void SRC::LA()
@@ -220,8 +238,8 @@ void SRC::LA()
 
 void SRC::LAR()
 {
-	registers[fetched.ra] = fetched.c1 + nPc;
-	//sign extend here
+	signed int sC1 = extend_c1_sign(fetched.c1);
+	registers[fetched.ra] = sC1 + nPc;
 }
 
 void SRC::BR()
@@ -265,13 +283,9 @@ void SRC::BRL()
 		BR();
 }
 
-void SRC::EEN()
-{
-}
+void SRC::EEN() {}
 
-void SRC::EDI()
-{
-}
+void SRC::EDI() {}
 
 void SRC::ADD()
 {
@@ -300,13 +314,9 @@ void SRC::NEG()
 	registers[fetched.ra] = -registers[fetched.rc];
 }
 
-void SRC::SVI()
-{
-}
+void SRC::SVI() {}
 
-void SRC::RI()
-{
-}
+void SRC::RI() {}
 
 void SRC::AND()
 {
@@ -388,22 +398,11 @@ void SRC::SHL()
 void SRC::SHC()
 {
 	//TODO
-	uint32_t rb_data = registers[fetched.rb];
-	uint32_t amount;
-	if (fetched.count != 0)
-		amount = fetched.count;
-	else
-		amount = registers[fetched.rc] & 0x1f;
-	for (uint32_t i = 0; i < amount; i++) {
-		rb_data = rb_data << 1;
-	}
-	registers[fetched.ra] = (signed int)rb_data;
 }
 
-void SRC::RFI()
-{
-}
+void SRC::RFI() {}
 
-void SRC::STOP()
-{
+void SRC::STOP() {
+	std::cout << "Stopping Program..." << std::endl;
+	return;
 }

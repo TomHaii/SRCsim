@@ -39,8 +39,9 @@ public:
 	uint16_t read16(uint32_t addr, bool readOnly = false);
 	uint8_t read8(uint32_t addr, bool readOnly = false);
 
-	//for debugging
 
+	//for debugging
+	
 	void print_memory(uint32_t addr);
 	void tests();
 };

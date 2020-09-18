@@ -29,8 +29,8 @@ void Bus::write16(uint32_t addr, uint16_t data)
 	uint8_t lo = data << 8;
 	uint8_t hi = (uint8_t) data;
 	if (addr >= 0x00000000 && addr < 0xffffffff) {
-		ram.insert(std::make_pair(addr, hi));
-		ram.insert(std::make_pair(addr + 1, lo));
+		ram[addr] = hi;
+		ram[addr + 1] = lo;
 		ram_index++;
 	}
 	else {
@@ -47,10 +47,14 @@ void Bus::write32(uint32_t addr, uint32_t data)
 	uint8_t hi = data;
 	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
 	if (addr >= 0x00000000 && addr - 3 <= 0xffffffff) {
-		ram.insert(std::make_pair(addr, hi));
-		ram.insert(std::make_pair(addr + 1, me));
-		ram.insert(std::make_pair(addr + 2, mi));
-		ram.insert(std::make_pair(addr + 3, lo));
+		//ram.insert(std::make_pair(addr, hi));
+		//ram.insert(std::make_pair(addr + 1, me));
+		//ram.insert(std::make_pair(addr + 2, mi));
+		//ram.insert(std::make_pair(addr + 3, lo));
+		ram[addr] = hi;
+		ram[addr + 1] = me;
+		ram[addr + 2] = mi;
+		ram[addr + 3] = lo;
 		ram_index++;  
 	}
 	else {
@@ -108,12 +112,29 @@ void Bus::tests()
 	//	src.print_registers();
 
 	//st tests
-	cpu.execute(0x2881ffff);
-	cpu.execute(0x188001ff);
-	cpu.execute(0x084001ff);
-	cpu.execute(0x188001ff);
+	//cpu.execute(0x2881ffff);
+	//cpu.execute(0x188001ff);
+	//cpu.execute(0x084001ff);
+	//cpu.execute(0x188001ff);
+	//cpu.print_registers();
+	//print_memory(0x1ff);
+
+	//big test 1
+	write32(200, 101);
+	write32(0x00000000,0x084000c8); //ld r1, 200
+	write32(0x00000004,0xa8820001); //andi r2,r1,1
+	write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
+	write32(0x0000000c,0xd9020001); //shra r4,r1,1
+	write32(0x00000010,0x31400008); //lar r5,8
+	write32(0x00000014,0x400a2002); //brzr r5,r2
+	write32(0x00000018,0x29060000); //la r4, 0(r3)
+	write32(0x0000001c,0x190000c8); //st r4, 200
+	write32(0x00000020,0xf8000000); //stop
+	while (read32(cpu.pc) != 0xf8000000) {
+		cpu.execute(read32(cpu.pc));
+	}
 	cpu.print_registers();
-	print_memory(0x1ff);
+	print_memory(200);
 }
 
 uint8_t Bus::read8(uint32_t addr, bool readOnly)

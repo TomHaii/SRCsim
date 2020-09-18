@@ -23,12 +23,13 @@ public:
 	//FOR DEBUGGING ONLY
 	void print_registers();
 
+	uint32_t pc = 0x00000000;
+	uint32_t nPc = 0x00000004;
 private:
 	
 	std::array<signed int, 32> registers;
 	Bus* bus = nullptr;
-	uint32_t pc = 0x00000000;
-	uint32_t nPc = 0x00000004;
+
 	//struct instruction {
 	//	std::string name;
 	//	uint8_t(src::* operate)(void) = nullptr;
@@ -53,6 +54,7 @@ private:
 
 	instruction fetched;
 	void decode(uint32_t addr);
+	signed int extend_c1_sign(uint32_t c1);
 	signed int extend_c2_sign(uint32_t c2);
 
 private: //instructions
