@@ -17,11 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Qt\mainwindow.cpp \
+    assembler\assembler.cpp \
     core\src.cpp \
     core\bus.cpp \
     main.cpp
 
 HEADERS += \
+    assembler\assembler.h \
     core\bus.h \
     core\src.h \
     Qt\mainwindow.h

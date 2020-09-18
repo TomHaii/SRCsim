@@ -6,9 +6,6 @@
 #include "src.h"
 #include <array>
 
-//TODO: make all the read and write generic so we won't need to make different functions for different sizes.
-
-
 class Bus
 {
 public:
