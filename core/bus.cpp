@@ -18,7 +18,7 @@ Bus::~Bus()
 void Bus::write8(uint32_t addr, uint8_t data)
 {
 	
-	if (addr > 0x00000000 && addr <= 0xffffffff) {
+	if (addr >= 0x00000000 && addr <= 0xffffffff) {
 		ram.insert(std::make_pair(addr, data));
 		ram_index++;
 	}
@@ -26,49 +26,56 @@ void Bus::write8(uint32_t addr, uint8_t data)
 
 void Bus::write16(uint32_t addr, uint16_t data)
 {
-
-	if (addr > 0x00000000 && addr <= 0xffffffff) {
-		ram.insert(std::make_pair(addr, data));
+	uint8_t lo = data << 8;
+	uint8_t hi = (uint8_t) data;
+	if (addr >= 0x00000000 && addr < 0xffffffff) {
+		ram.insert(std::make_pair(addr, hi));
+		ram.insert(std::make_pair(addr + 1, lo));
 		ram_index++;
+	}
+	else {
+		std::cout << "Memory out of range" << std::endl;
 	}
 }
 
 
 void Bus::write32(uint32_t addr, uint32_t data)
 {
-	if (addr >= 0x00000000 && addr <= 0xffffffff) {
-		ram.insert(std::make_pair(addr, data));
+	uint8_t lo = data >> 24;
+	uint8_t mi = data >> 16;
+	uint8_t me = data >> 8;
+	uint8_t hi = data;
+	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
+	if (addr >= 0x00000000 && addr - 3 <= 0xffffffff) {
+		ram.insert(std::make_pair(addr, hi));
+		ram.insert(std::make_pair(addr + 1, me));
+		ram.insert(std::make_pair(addr + 2, mi));
+		ram.insert(std::make_pair(addr + 3, lo));
 		ram_index++;  
+	}
+	else {
+		std::cout << "Memory out of range" << std::endl;
 	}
 }
 
 
-uint8_t Bus::read8(uint32_t addr, bool readOnly)
+
+void Bus::print_memory(uint32_t addr)
 {
+	uint8_t hi = 0, me = 0, mi = 0, lo = 0;
 	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
 		if (it->first == addr)
-			return it->second;
+			hi = it->second;
+		if (it->first == addr + 1)
+			me = it->second;
+		if (it->first == addr + 2)
+			mi = it->second;
+		if (it->first == addr + 3)
+			lo = it->second;
 	}
-	return 0;
-}
-
-void Bus::print_memory(uint32_t addr, int size)
-{
-	int amount_to_print = size;
-	std::map<uint32_t, uint8_t>::iterator it;
-	for (it = ram.begin(); it != ram.end(); it++) {
-		if (it->first == addr) {
-			signed int n = 0;
-			do {
-				uint8_t temp = it->second;
-				amount_to_print--;
-			} while (amount_to_print != 0);
-			std::cout << "Value at " << std::hex << addr << " is " << std::dec << it->second << std::endl;
-			return;
-		}
-	}
-	std::cout << "Nothing is in (0) " << std::hex << addr << std::endl;
+	signed int val = (lo << 24) + (mi << 16) + (me << 8) + hi;
+	std::cout << "Value at " << std::hex << addr << " is " << std::dec << val << std::endl;
 }
 
 void Bus::tests()
@@ -104,14 +111,14 @@ void Bus::tests()
 	cpu.execute(0x2881ffff);
 	cpu.execute(0x188001ff);
 	cpu.execute(0x084001ff);
-	//cpu.execute(0x188001ff);
+	cpu.execute(0x188001ff);
 	cpu.print_registers();
-
 	print_memory(0x1ff);
 }
 
-uint16_t Bus::read16(uint32_t addr, bool readOnly) {
-	std::map<uint32_t, signed int>::iterator it;
+uint8_t Bus::read8(uint32_t addr, bool readOnly)
+{
+	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
 		if (it->first == addr)
 			return it->second;
@@ -119,11 +126,32 @@ uint16_t Bus::read16(uint32_t addr, bool readOnly) {
 	return 0;
 }
 
-uint32_t Bus::read32(uint32_t addr, bool readOnly) {
-	std::map<uint32_t, signed int>::iterator it;
+uint16_t Bus::read16(uint32_t addr, bool readOnly) {
+	uint8_t hi = 0, lo = 0;
+	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
 		if (it->first == addr)
-			return it->second;
+			hi = it->second;
+		if (it->first == addr + 1)
+			lo = it->second;
 	}
-	return 0;
+	signed short val = (lo << 8) + hi;
+	return val;
+}
+
+uint32_t Bus::read32(uint32_t addr, bool readOnly) {
+	uint8_t hi = 0, me = 0, mi = 0, lo = 0;
+	std::map<uint32_t, uint8_t>::iterator it;
+	for (it = ram.begin(); it != ram.end(); it++) {
+		if (it->first == addr)
+			hi = it->second;
+		if (it->first == addr + 1)
+			me = it->second;
+		if (it->first == addr + 2)
+			mi = it->second;
+		if (it->first == addr + 3)
+			lo = it->second;
+	}
+	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
+	return val;
 }

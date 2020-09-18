@@ -41,7 +41,7 @@ public:
 
 	//for debugging
 
-	void print_memory(uint32_t addr, int size);
+	void print_memory(uint32_t addr);
 	void tests();
 };
 
