@@ -1,7 +1,9 @@
+//Created by Tom Levy - 19.9.2020
+
 #pragma once
 #include <cstdint>
-#include <string>
 #include <iostream>
+#include <string>
 #include <array>
 //for debugging
 #include <bitset>
@@ -30,11 +32,6 @@ private:
 	std::array<signed int, 32> registers;
 	Bus* bus = nullptr;
 
-	//struct instruction {
-	//	std::string name;
-	//	uint8_t(src::* operate)(void) = nullptr;
-	//	uint8_t(src::* addrmode)(void) = nullptr;
-	//};
 	
 	struct instruction {
 		uint32_t value; //used for debugging purposes

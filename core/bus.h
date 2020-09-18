@@ -3,6 +3,7 @@
 #include <cstdint>
 #include "src.h"
 #include <array>
+
 //TODO: make all the read and write generic so we won't need to make different functions for different sizes.
 
 
@@ -18,17 +19,7 @@ public:
 
 private:
 
-	struct MEM {
-		uint32_t addr;
-		uint32_t data;
-	};
-
-	//temporary fake ram
 	std::map<uint32_t, uint8_t> ram;
-	//uint8_t fakeRam[1024 * 1024];
-	//std::array<uint8_t, 1024 * 1024> fakeRam;
-//	std::array<MEM, 2 * 1000 * 1024> ram;  //fake 2mb ram
-	uint32_t ram_index;
 
 public:
 	void write32(uint32_t addr, uint32_t data);

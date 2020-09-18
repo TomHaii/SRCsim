@@ -1,3 +1,5 @@
+//Created by Tom Levy - 19.9.2020
+
 #include "bus.h"
 
 
@@ -5,7 +7,6 @@
 Bus::Bus()
 {
 	
-	ram_index = 0;
 	std::cout << "Connecting to bus" << std::endl;
 	cpu.connectBus(this);
 
@@ -20,7 +21,6 @@ void Bus::write8(uint32_t addr, uint8_t data)
 	
 	if (addr >= 0x00000000 && addr <= 0xffffffff) {
 		ram.insert(std::make_pair(addr, data));
-		ram_index++;
 	}
 }
 
@@ -28,10 +28,9 @@ void Bus::write16(uint32_t addr, uint16_t data)
 {
 	uint8_t lo = data << 8;
 	uint8_t hi = (uint8_t) data;
-	if (addr >= 0x00000000 && addr < 0xffffffff) {
+	if (addr >= 0x00000000 && addr - 1<= 0xffffffff) {
 		ram[addr] = hi;
 		ram[addr + 1] = lo;
-		ram_index++;
 	}
 	else {
 		std::cout << "Memory out of range" << std::endl;
@@ -55,7 +54,6 @@ void Bus::write32(uint32_t addr, uint32_t data)
 		ram[addr + 1] = me;
 		ram[addr + 2] = mi;
 		ram[addr + 3] = lo;
-		ram_index++;  
 	}
 	else {
 		std::cout << "Memory out of range" << std::endl;
@@ -84,57 +82,45 @@ void Bus::print_memory(uint32_t addr)
 
 void Bus::tests()
 {
-	//here we need to read a file and start executing the commands
+	
+	//test 1
+	//write32(200, 101);
+	//write32(0x00000000,0x084000c8); //ld r1, 200
+	//write32(0x00000004,0xa8820001); //andi r2,r1,1
+	//write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
+	//write32(0x0000000c,0xd9020001); //shra r4,r1,1
+	//write32(0x00000010,0x31400008); //lar r5,8
+	//write32(0x00000014,0x400a2002); //brzr r5,r2
+	//write32(0x00000018,0x29060000); //la r4, 0(r3)
+	//write32(0x0000001c,0x190000c8); //st r4, 200
+	//write32(0x00000020,0xf8000000); //stop
+	
+	write32(200, 17);
+	write32(204, 4);
+	write32(0x00000000, 0x084000c8); //ld r1, 200
+	write32(0x00000004, 0x088000cc); //ld r2,204
+	write32(0x00000008, 0x28c00000); //la r3,0
+	write32(0x0000000c, 0x31000000); //lar r4,0
+	write32(0x00000010, 0x68c60001); //addi r3,r3,1
+	write32(0x00000014, 0x70422000); //sub r1,r1,r2
+	write32(0x00000018, 0x40081004); //brpl r4,r1
+	write32(0x0000001c, 0x60422000); //add r1,r1,r2
+	write32(0x00000020, 0x68c7ffff); //addi r3,r3,-1
+	write32(0x00000024, 0x184000d4); //st r1,212
+	write32(0x00000028, 0x18c000d0); //st r3,208
+	write32(0x0000002c, 0xf8000000); //stop
 
-	//LA TEST
-	//src.execute(0x28000000);
-	//src.print_registers();
-	//src.execute(0x28400001);
-	//src.print_registers();
-	//src->execute(0x2841FFFF);
-	//src->print_registers();
 
-	//and test
-	//src->execute(0x2841ffff);
-	//src->execute(0x2881fffe);
-	//src->execute(0xa0c41000);
-	//src->print_registers();
-
-
-	//shl tests
-	//src->execute(0x2881ffff);
-	//src->execute(0xe0440001);
-	//src->print_registers();
-
-	//shr tests
-	//src->execute(0x2881fffe);
-	//src->execute(0xd8440001);
-	//	src.print_registers();
-
-	//st tests
-	//cpu.execute(0x2881ffff);
-	//cpu.execute(0x188001ff);
-	//cpu.execute(0x084001ff);
-	//cpu.execute(0x188001ff);
-	//cpu.print_registers();
-	//print_memory(0x1ff);
-
-	//big test 1
-	write32(200, 101);
-	write32(0x00000000,0x084000c8); //ld r1, 200
-	write32(0x00000004,0xa8820001); //andi r2,r1,1
-	write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
-	write32(0x0000000c,0xd9020001); //shra r4,r1,1
-	write32(0x00000010,0x31400008); //lar r5,8
-	write32(0x00000014,0x400a2002); //brzr r5,r2
-	write32(0x00000018,0x29060000); //la r4, 0(r3)
-	write32(0x0000001c,0x190000c8); //st r4, 200
-	write32(0x00000020,0xf8000000); //stop
 	while (read32(cpu.pc) != 0xf8000000) {
 		cpu.execute(read32(cpu.pc));
 	}
 	cpu.print_registers();
-	print_memory(200);
+	//test 1
+	//print_memory(200);
+	//test 2
+	print_memory(212);
+	print_memory(208);
+	
 }
 
 uint8_t Bus::read8(uint32_t addr, bool readOnly)

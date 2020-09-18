@@ -1,6 +1,7 @@
-#pragma once
+//Created by Tom Levy - 19.9.2020
+
 #include "src.h"
-#include "Bus.h"
+#include "bus.h"
 
 SRC::SRC() {
 	std::cout << "starting CPU" << std::endl;
@@ -15,14 +16,12 @@ void SRC::execute(uint32_t li)
 {
 	decode(li);
 	uint32_t opcode = fetched.opcode;
-	bool valid = true;
 
-	if (opcode < 0 || opcode > 31 || opcode == 7 || opcode == 18 || opcode == 19 || opcode == 25) {
+    if (opcode > 31 || opcode == 7 || opcode == 18 || opcode == 19 || opcode == 25) {
 		std::cout << "Invalid opcode" << std::endl;
 		return;
 	}
 
-	//bus->write32(pc, li);
 
 	//tests
 	//signed int c2 = extend_c2_sign(fetched.c2);
@@ -140,16 +139,6 @@ void SRC::execute(uint32_t li)
 	nPc += 4;
 	
 }
-//
-//uint32_t SRC::read32(uint32_t addr)
-//{
-//	return bus->read32(addr);
-//}
-//
-//void SRC::write32(uint32_t addr, uint32_t data)
-//{
-//	bus->write32(addr, data);
-//}
 
 void SRC::print_registers()
 {
@@ -209,7 +198,6 @@ void SRC::LD() {
 
 void SRC::LDR()
 {
-	//access the memory and get the value inside the address c1+nPC
 	signed int sC1 = extend_c1_sign(fetched.c1);
 	registers[fetched.ra] = bus->read32(sC1 + nPc);
 }
@@ -306,7 +294,6 @@ void SRC::SUB()
 	signed int rb_data = registers[fetched.rb];
 	signed int rc_data = registers[fetched.rc];
 	registers[fetched.ra] = rb_data - rc_data;
-
 }
 
 void SRC::NEG()
