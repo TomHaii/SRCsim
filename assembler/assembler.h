@@ -1,4 +1,11 @@
 #pragma once
+#include <string>
+#include <vector>
+#include <sstream>
+#include <iostream>
+#include "core/bus.h"
+
+
 class Assembler
 {
 public:
@@ -22,11 +29,38 @@ private:
         R24 = 24, R25 = 25, R26 = 26, R27 = 27, R28 = 28, R29 = 29,
         R30 = 30, R31 = 31
     };
+
+    struct instr {
+        std::string instr_name;
+        std::string in_1 = "";
+        std::string in_2 = "";
+        std::string in_3 = "";
+        std::string he = "";
+    };
+    Bus bus;
+    instr nInstruction;
+    std::vector<std::string> s_instructions;
+    //std::vector<instr> instructions;
+
 public:
-    void decode();
+
+    void assemble();
+    void parse(std::string instr);
+
 
 private:
+    uint32_t mWord_instruction();
+    void build_instruction(std::string in);
+    void splitString(std::string instr);
 
-
+    //break instruction to format
+    uint32_t format1();
+    uint32_t format2();
+    uint32_t format3();
+    uint32_t format4();
+    uint32_t format5();
+    uint32_t format6();
+    uint32_t format7();
+    uint32_t format8();
 };
 

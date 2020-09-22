@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <iostream>
+#include <assembler\assembler.h>
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,12 +18,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-public:
+
 
 private slots:
     void on_Run_clicked();
 
 private:
     Ui::MainWindow *ui;
+    std::shared_ptr<Assembler> assm;
 };
 #endif // MAINWINDOW_H

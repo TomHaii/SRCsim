@@ -56,11 +56,13 @@
 
 int main(int argc, char *argv[])
 {
+//    Bus bus;
+  //  bus.tests();
     QApplication a(argc, argv);
     MainWindow w;
+
     w.show();
-    Bus bus;
-    bus.tests();
+
 
     return a.exec();
 }

@@ -6,21 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>873</width>
+    <height>688</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>SRCsim</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="Run">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>460</y>
-      <width>80</width>
-      <height>21</height>
+      <x>590</x>
+      <y>520</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -30,14 +30,65 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>20</y>
-      <width>671</width>
-      <height>431</height>
+      <x>0</x>
+      <y>0</y>
+      <width>691</width>
+      <height>521</height>
      </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>691</width>
+        <height>491</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>691</width>
+        <height>192</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Source Code Pro</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
+   </widget>
+   <widget class="QTextEdit" name="outputBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>520</y>
+      <width>591</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string extracomment="Output"/>
     </property>
    </widget>
   </widget>
@@ -46,12 +97,54 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>873</width>
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSRCsim">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionFile"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionOpen"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAbout_2">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+   </widget>
+   <addaction name="menuSRCsim"/>
+   <addaction name="menuAbout"/>
+   <addaction name="menuDebug"/>
+   <addaction name="menuAbout_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionFile">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

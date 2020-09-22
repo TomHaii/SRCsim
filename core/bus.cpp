@@ -9,7 +9,6 @@ Bus::Bus()
 	
 	std::cout << "Connecting to bus" << std::endl;
 	cpu.connectBus(this);
-
 }
 
 Bus::~Bus()
@@ -19,16 +18,17 @@ Bus::~Bus()
 void Bus::write8(uint32_t addr, uint8_t data)
 {
 	
-	if (addr >= 0x00000000 && addr <= 0xffffffff) {
-		ram.insert(std::make_pair(addr, data));
-	}
+    if (addr <= 0xffffffff) {
+        //ram.insert(std::make_pair(addr, data));
+        ram[addr] = data;
+    }
 }
 
 void Bus::write16(uint32_t addr, uint16_t data)
 {
 	uint8_t lo = data << 8;
 	uint8_t hi = (uint8_t) data;
-	if (addr >= 0x00000000 && addr - 1<= 0xffffffff) {
+    if (addr - 1 <= 0xffffffff) {
 		ram[addr] = hi;
 		ram[addr + 1] = lo;
 	}
@@ -44,8 +44,8 @@ void Bus::write32(uint32_t addr, uint32_t data)
 	uint8_t mi = data >> 16;
 	uint8_t me = data >> 8;
 	uint8_t hi = data;
-	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
-	if (addr >= 0x00000000 && addr - 3 <= 0xffffffff) {
+//	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
+    if (addr - 3 <= 0xffffffff) {
 		//ram.insert(std::make_pair(addr, hi));
 		//ram.insert(std::make_pair(addr + 1, me));
 		//ram.insert(std::make_pair(addr + 2, mi));
@@ -123,7 +123,7 @@ void Bus::tests()
 	
 }
 
-uint8_t Bus::read8(uint32_t addr, bool readOnly)
+uint8_t Bus::read8(uint32_t addr)
 {
 	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
@@ -133,7 +133,7 @@ uint8_t Bus::read8(uint32_t addr, bool readOnly)
 	return 0;
 }
 
-uint16_t Bus::read16(uint32_t addr, bool readOnly) {
+uint16_t Bus::read16(uint32_t addr) {
 	uint8_t hi = 0, lo = 0;
 	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {
@@ -146,7 +146,7 @@ uint16_t Bus::read16(uint32_t addr, bool readOnly) {
 	return val;
 }
 
-uint32_t Bus::read32(uint32_t addr, bool readOnly) {
+uint32_t Bus::read32(uint32_t addr) {
 	uint8_t hi = 0, me = 0, mi = 0, lo = 0;
 	std::map<uint32_t, uint8_t>::iterator it;
 	for (it = ram.begin(); it != ram.end(); it++) {

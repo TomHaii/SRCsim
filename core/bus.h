@@ -3,8 +3,9 @@
 #pragma once
 #include <map>
 #include <cstdint>
-#include "src.h"
 #include <array>
+
+#include "src.h"
 
 class Bus
 {
@@ -15,7 +16,6 @@ public:
 public:
 	SRC cpu;
 
-
 private:
 
 	std::map<uint32_t, uint8_t> ram;
@@ -25,13 +25,13 @@ public:
 	void write16(uint32_t addr, uint16_t data);
 	void write8(uint32_t addr, uint8_t data);
 
-	uint32_t read32(uint32_t addr, bool readOnly = false);
-	uint16_t read16(uint32_t addr, bool readOnly = false);
-	uint8_t read8(uint32_t addr, bool readOnly = false);
+    uint32_t read32(uint32_t addr);
+    uint16_t read16(uint32_t addr);
+    uint8_t read8(uint32_t addr);
 
+//    void connectAssembler(const std::shared_ptr<Assembler>& assm);
 
 	//for debugging
-	
 	void print_memory(uint32_t addr);
 	void tests();
 };

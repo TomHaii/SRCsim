@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "core/bus.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    assm = std::make_shared<Assembler>();
 }
 
 MainWindow::~MainWindow()
@@ -16,6 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Run_clicked(){
     QString text = ui->textEdit->toPlainText();
-    std::cout << "Running\n" << text.toStdString() << std::endl;
+    if(text != "")
+        assm->parse(text.toStdString());
 }
 
