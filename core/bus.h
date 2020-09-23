@@ -29,10 +29,9 @@ public:
     uint16_t read16(uint32_t addr);
     uint8_t read8(uint32_t addr);
 
-//    void connectAssembler(const std::shared_ptr<Assembler>& assm);
 
 	//for debugging
 	void print_memory(uint32_t addr);
-	void tests();
+    void run();
 };
 

@@ -53,12 +53,9 @@ void SRC::execute(uint32_t li)
 			break;
 		case 5:
 			LA();
-			//debug
-			std::cout << "Executing LA commend" << std::endl;
 			break;
 		case 6:
 			LAR();
-			std::cout << "Executing LAR commend" << std::endl;
 			break;
 		// opcode 7 doesn't exist
 		case 8:

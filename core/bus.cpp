@@ -80,7 +80,7 @@ void Bus::print_memory(uint32_t addr)
 	std::cout << "Value at " << std::hex << addr << " is " << std::dec << val << std::endl;
 }
 
-void Bus::tests()
+void Bus::run()
 {
 	
 	//test 1
@@ -95,31 +95,31 @@ void Bus::tests()
 	//write32(0x0000001c,0x190000c8); //st r4, 200
 	//write32(0x00000020,0xf8000000); //stop
 	
-	write32(200, 17);
-	write32(204, 4);
-	write32(0x00000000, 0x084000c8); //ld r1, 200
-	write32(0x00000004, 0x088000cc); //ld r2,204
-	write32(0x00000008, 0x28c00000); //la r3,0
-	write32(0x0000000c, 0x31000000); //lar r4,0
-	write32(0x00000010, 0x68c60001); //addi r3,r3,1
-	write32(0x00000014, 0x70422000); //sub r1,r1,r2
-	write32(0x00000018, 0x40081004); //brpl r4,r1
-	write32(0x0000001c, 0x60422000); //add r1,r1,r2
-	write32(0x00000020, 0x68c7ffff); //addi r3,r3,-1
-	write32(0x00000024, 0x184000d4); //st r1,212
-	write32(0x00000028, 0x18c000d0); //st r3,208
-	write32(0x0000002c, 0xf8000000); //stop
+//	write32(200, 17);
+//	write32(204, 4);
+//	write32(0x00000000, 0x084000c8); //ld r1, 200
+//	write32(0x00000004, 0x088000cc); //ld r2,204
+//	write32(0x00000008, 0x28c00000); //la r3,0
+//	write32(0x0000000c, 0x31000000); //lar r4,0
+//	write32(0x00000010, 0x68c60001); //addi r3,r3,1
+//	write32(0x00000014, 0x70422000); //sub r1,r1,r2
+//	write32(0x00000018, 0x40081004); //brpl r4,r1
+//	write32(0x0000001c, 0x60422000); //add r1,r1,r2
+//	write32(0x00000020, 0x68c7ffff); //addi r3,r3,-1
+//	write32(0x00000024, 0x184000d4); //st r1,212
+//	write32(0x00000028, 0x18c000d0); //st r3,208
+//	write32(0x0000002c, 0xf8000000); //stop
 
 
-	while (read32(cpu.pc) != 0xf8000000) {
+    while (read32(cpu.pc) != 0xf8000000) { //until stop instruciton
 		cpu.execute(read32(cpu.pc));
 	}
 	cpu.print_registers();
 	//test 1
 	//print_memory(200);
 	//test 2
-	print_memory(212);
-	print_memory(208);
+    //print_memory(212);
+    //print_memory(208);
 	
 }
 

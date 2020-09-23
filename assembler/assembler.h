@@ -52,6 +52,7 @@ private:
     uint32_t mWord_instruction();
     void build_instruction(std::string in);
     void splitString(std::string instr);
+    uint32_t decode_operands(std::string op);
 
     //break instruction to format
     uint32_t format1();
