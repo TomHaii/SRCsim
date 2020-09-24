@@ -84,19 +84,19 @@ void Bus::run()
 {
 	
 	//test 1
-	//write32(200, 101);
-	//write32(0x00000000,0x084000c8); //ld r1, 200
+    write32(100, 101);
+    //write32(0x00000000,0x08400064); //ld r1, 100
 	//write32(0x00000004,0xa8820001); //andi r2,r1,1
 	//write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
 	//write32(0x0000000c,0xd9020001); //shra r4,r1,1
 	//write32(0x00000010,0x31400008); //lar r5,8
 	//write32(0x00000014,0x400a2002); //brzr r5,r2
 	//write32(0x00000018,0x29060000); //la r4, 0(r3)
-	//write32(0x0000001c,0x190000c8); //st r4, 200
+    //write32(0x0000001c,0x19000064); //st r4, 100
 	//write32(0x00000020,0xf8000000); //stop
 	
-//	write32(200, 17);
-//	write32(204, 4);
+    write32(200, 17);
+    write32(204, 4);
 //	write32(0x00000000, 0x084000c8); //ld r1, 200
 //	write32(0x00000004, 0x088000cc); //ld r2,204
 //	write32(0x00000008, 0x28c00000); //la r3,0
@@ -116,10 +116,11 @@ void Bus::run()
 	}
 	cpu.print_registers();
 	//test 1
-	//print_memory(200);
+    print_memory(100);
 	//test 2
-    //print_memory(212);
-    //print_memory(208);
+
+    //print_memory(212); // should be 1
+    //print_memory(208); // should be 4
 	
 }
 
@@ -161,4 +162,9 @@ uint32_t Bus::read32(uint32_t addr) {
 	}
 	uint32_t val = (lo << 24) + (mi << 16) + (me << 8) + hi;
 	return val;
+}
+
+
+void Bus::mod_pc(uint32_t amount){
+    cpu.pc += amount;
 }

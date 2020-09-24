@@ -29,7 +29,7 @@ public:
     uint16_t read16(uint32_t addr);
     uint8_t read8(uint32_t addr);
 
-
+    void mod_pc(uint32_t amount);
 	//for debugging
 	void print_memory(uint32_t addr);
     void run();

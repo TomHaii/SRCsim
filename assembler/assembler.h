@@ -30,6 +30,11 @@ private:
         R30 = 30, R31 = 31
     };
 
+    enum Conditions{
+        JUMP = 1, JUMP_ZERO = 2, JUMP_NOT_ZERO = 3,
+        JUMP_POSITIVE = 4, JUMP_NEGATIVE = 5
+    };
+
     struct instr {
         std::string instr_name;
         std::string in_1 = "";

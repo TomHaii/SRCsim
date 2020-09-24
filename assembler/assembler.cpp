@@ -8,9 +8,7 @@ Assembler::~Assembler(){
 }
 
 void Assembler::assemble(){
-    uint32_t machine_word = mWord_instruction();
-    std::cout << " Machine word is " << std::hex << machine_word << std::endl;
-    //bus.run();
+    bus.run();
 
 }
 
@@ -18,12 +16,19 @@ void Assembler::assemble(){
 
 void Assembler::parse(std::string instr){
     splitString(instr);
+    uint32_t pc = 0x00000000;
     for(std::string &s: s_instructions){
         build_instruction(s);
-        std::cout << "in name " << nInstruction.instr_name << std::endl;
-        std::cout << "input 1 name " << nInstruction.in_1 << std::endl;
-        std::cout << "input 2 name " << nInstruction.in_2 << std::endl;
-        std::cout << "input 3 name " << nInstruction.in_3 << std::endl;
+        //need to take care of pseudo-operations
+        uint32_t machine_word = mWord_instruction();
+        std::cout << " Machine word is " << std::hex << machine_word << std::endl;
+//        std::cout << "in name " << nInstruction.instr_name << std::endl;
+//        std::cout << "input 1 name " << nInstruction.in_1 << std::endl;
+//        std::cout << "input 2 name " << nInstruction.in_2 << std::endl;
+//        std::cout << "input 3 name " << nInstruction.in_3 << std::endl;
+
+        bus.write32(pc, machine_word);
+        pc += 4;
     }
     assemble();
 }
@@ -81,36 +86,156 @@ uint32_t Assembler::format1(){
     std::cout << "c value is " << std::dec << c << std::endl;
 
     res = (c & 0x1ffff) + (r2M << 17) + (r1M << 22) + (opCode << 27);
-    std::cout << "Instruction machine word value is " << std::hex << res << std::endl;
     return res;
 }
 
 uint32_t Assembler::format2(){
-    return 0;
-}
+    uint32_t res = 0, opCode = 0;
+    std::string name = nInstruction.instr_name;
+    if(name == "ldr")
+        opCode = LDR;
+    else if(name == "str")
+        opCode = STR;
+    else if(name == "lar")
+        opCode = LAR;
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t c = 0;
+    try {
+    c = stoi(nInstruction.in_3);
+    }
+    catch (std::exception e){
+        std::cout << "illegal immediate" << std::endl;
+    }
+    std::cout << "c value is " << std::dec << c << std::endl;
+
+    res = (c & 0x3fffff) + (r1M << 22) + (opCode << 27);
+    return res;}
 
 uint32_t Assembler::format3(){
-    return 0;
+    uint32_t res = 0, opCode = 0;
+    std::string name = nInstruction.instr_name;
+    if(name == "neg")
+        opCode = NEG;
+    else if(name == "not")
+        opCode = NOT;
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t r2M = decode_operands(nInstruction.in_2);
+    std::cout << "second operand value is " << std::dec << r2M << std::endl;
+
+    res = (r2M << 12) + (r1M << 22) + (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::format4(){
-    return 0;
+    uint32_t res = 0, cond = 0, opCode = BR;
+    std::string name = nInstruction.instr_name;
+    if(name == "br")
+        cond = JUMP;
+    else if(name == "brzr")
+        cond = JUMP_ZERO;
+    else if(name == "brnz")
+        cond = JUMP_NOT_ZERO;
+    else if(name == "brpl")
+        cond = JUMP_POSITIVE;
+    else if(name == "brmi")
+        cond = JUMP_NEGATIVE;
+
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t r2M = decode_operands(nInstruction.in_2);
+    std::cout << "second operand value is " << std::dec << r2M << std::endl;
+
+    res = (cond & 0x7) + (r2M << 12) + (r1M << 17) + (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::format5(){
-    return 0;
+    uint32_t res = 0, cond = 0, opCode = BRL;
+    std::string name = nInstruction.instr_name;
+    if(name == "brl")
+        cond = JUMP;
+    else if(name == "brlzr")
+        cond = JUMP_ZERO;
+    else if(name == "brlnz")
+        cond = JUMP_NOT_ZERO;
+    else if(name == "brlpl")
+        cond = JUMP_POSITIVE;
+    else if(name == "brlmi")
+        cond = JUMP_NEGATIVE;
+
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t r2M = decode_operands(nInstruction.in_2);
+    std::cout << "second operand value is " << std::dec << r2M << std::endl;
+    uint32_t r3M = decode_operands(nInstruction.in_3);
+    std::cout << "third operand value is " << std::dec << r3M << std::endl;
+
+    res = (cond & 0x7) + (r3M << 12) + (r2M << 17) + (r1M << 22) + (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::format6(){
-    return 0;
+    uint32_t res = 0, opCode = 0;
+    std::string name = nInstruction.instr_name;
+    if(name == "add")
+        opCode = ADD;
+    else if(name == "sub")
+        opCode = SUB;
+    else if(name == "and")
+        opCode = AND;
+    else if(name == "or")
+        opCode = OR;
+
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t r2M = decode_operands(nInstruction.in_2);
+    std::cout << "second operand value is " << std::dec << r2M << std::endl;
+    uint32_t r3M = decode_operands(nInstruction.in_3);
+    std::cout << "third operand value is " << std::dec << r3M << std::endl;
+
+    res = (r3M << 12) + (r2M << 17) + (r1M << 22) + (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::format7(){
-    return 0;
+    uint32_t res = 0, shift_amount = 0, opCode = 0;
+    std::string name = nInstruction.instr_name;
+    if(name == "shr")
+        opCode = SHR;
+    else if(name == "shra")
+        opCode = SHRA;
+    else if(name == "shl")
+        opCode = SHL;
+    else if(name == "shc")
+        opCode = SHC;
+
+    uint32_t r1M = decode_operands(nInstruction.in_1);
+    std::cout << "first operand value is " << std::dec << r1M << std::endl;
+    uint32_t r2M = decode_operands(nInstruction.in_2);
+    std::cout << "second operand value is " << std::dec << r2M << std::endl;
+    uint32_t r3M = decode_operands(nInstruction.in_3);
+    std::cout << "third operand value is " << std::dec << r3M << std::endl;
+    try {
+        shift_amount = stoi(nInstruction.in_3);
+    }
+    catch (std::exception e){
+        std::cout << "not using immediate" << std::endl;
+    }
+    res = (shift_amount & 0x1f) + (r3M << 12) + (r2M << 17) + (r1M << 22) + (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::format8(){
-    return 0;
+    uint32_t res = 0, opCode = 0;
+    std::string name = nInstruction.instr_name;
+    if(name == "nop")
+        opCode = NOP;
+    else if(name == "stop")
+        opCode = STOP;
+    res = (opCode << 27);
+    return res;
 }
 
 uint32_t Assembler::decode_operands(std::string op){
@@ -183,7 +308,7 @@ uint32_t Assembler::decode_operands(std::string op){
         return 0;
 }
 void Assembler::build_instruction(std::string in){
-    //TODO: Take care of of bracket instructions
+    //TODO: Take care of bracket instructions
 
     std::istringstream f(in);
     std::string s;
