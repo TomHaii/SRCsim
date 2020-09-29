@@ -15,9 +15,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_Run_clicked(){
+
+void MainWindow::on_pcEdit_editingFinished()
+{
+
+}
+
+
+void MainWindow::on_toolRun_triggered()
+{
     QString text = ui->textEdit->toPlainText();
     if(text != "")
         assm->parse(text.toStdString());
 }
-

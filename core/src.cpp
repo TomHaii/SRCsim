@@ -12,6 +12,10 @@ SRC::~SRC()
 {
 }
 
+void SRC::reset_registers(){
+    for(auto &i : registers) i = 0x00000000;
+}
+
 void SRC::execute(uint32_t li)
 {
 	decode(li);

@@ -9,7 +9,6 @@ Assembler::~Assembler(){
 
 void Assembler::assemble(){
     bus.run();
-
 }
 
 
@@ -72,13 +71,16 @@ uint32_t Assembler::format1(){
         opCode = ANDI;
     else if(name == "ori")
         opCode = ORI;
+    else
+        std::cout << "illegal instruction" << std::endl;
+
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
     uint32_t r2M = decode_operands(nInstruction.in_2);
     std::cout << "second operand value is " << std::dec << r2M << std::endl;
     uint32_t c = 0;
     try {
-    c = stoi(nInstruction.in_3);
+        c = stoi(nInstruction.in_3);
     }
     catch (std::exception e){
         std::cout << "illegal immediate" << std::endl;
@@ -98,6 +100,9 @@ uint32_t Assembler::format2(){
         opCode = STR;
     else if(name == "lar")
         opCode = LAR;
+    else
+        std::cout << "illegal instruction" << std::endl;
+
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
     uint32_t c = 0;
@@ -119,6 +124,8 @@ uint32_t Assembler::format3(){
         opCode = NEG;
     else if(name == "not")
         opCode = NOT;
+    else
+        std::cout << "illegal instruction" << std::endl;
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
     uint32_t r2M = decode_operands(nInstruction.in_2);
@@ -141,6 +148,8 @@ uint32_t Assembler::format4(){
         cond = JUMP_POSITIVE;
     else if(name == "brmi")
         cond = JUMP_NEGATIVE;
+    else
+        std::cout << "illegal br instruction" << std::endl;
 
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
@@ -164,6 +173,8 @@ uint32_t Assembler::format5(){
         cond = JUMP_POSITIVE;
     else if(name == "brlmi")
         cond = JUMP_NEGATIVE;
+    else
+        std::cout << "illegal br instruction" << std::endl;
 
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
@@ -187,6 +198,8 @@ uint32_t Assembler::format6(){
         opCode = AND;
     else if(name == "or")
         opCode = OR;
+    else
+        std::cout << "illegal instruction" << std::endl;
 
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;
@@ -210,6 +223,8 @@ uint32_t Assembler::format7(){
         opCode = SHL;
     else if(name == "shc")
         opCode = SHC;
+    else
+        std::cout << "illegal instruction" << std::endl;
 
     uint32_t r1M = decode_operands(nInstruction.in_1);
     std::cout << "first operand value is " << std::dec << r1M << std::endl;

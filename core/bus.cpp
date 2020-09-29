@@ -15,6 +15,14 @@ Bus::~Bus()
 {
 }
 
+void Bus::reset(){
+    std::map<uint32_t, uint8_t>::iterator it;
+    for (it = ram.begin(); it != ram.end(); it++) {
+        ram.erase(it);
+    }
+    cpu.reset_registers();
+}
+
 void Bus::write8(uint32_t addr, uint8_t data)
 {
 	
@@ -84,16 +92,16 @@ void Bus::run()
 {
 	
 	//test 1
-    write32(100, 101);
+    write32(100, 100);
     //write32(0x00000000,0x08400064); //ld r1, 100
-	//write32(0x00000004,0xa8820001); //andi r2,r1,1
-	//write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
-	//write32(0x0000000c,0xd9020001); //shra r4,r1,1
-	//write32(0x00000010,0x31400008); //lar r5,8
-	//write32(0x00000014,0x400a2002); //brzr r5,r2
-	//write32(0x00000018,0x29060000); //la r4, 0(r3)
+    //write32(0x00000004,0xa8820001); //andi r2,r1,1
+    //write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
+    //write32(0x0000000c,0xd9020001); //shra r4,r1,1
+    //write32(0x00000010,0x31400008); //lar r5,8
+    //write32(0x00000014,0x400a2002); //brzr r5,r2
+    //write32(0x00000018,0x29060000); //la r4, 0(r3)
     //write32(0x0000001c,0x19000064); //st r4, 100
-	//write32(0x00000020,0xf8000000); //stop
+    //write32(0x00000020,0xf8000000); //stop
 	
     write32(200, 17);
     write32(204, 4);

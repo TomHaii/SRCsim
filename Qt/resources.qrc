@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="run">resources/run_icon.jpg</file>
+        <file alias="mTool">resources/break_mword.jpg</file>
+    </qresource>
+</RCC>

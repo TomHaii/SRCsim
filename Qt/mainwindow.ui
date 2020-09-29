@@ -10,68 +10,86 @@
     <height>688</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>SRCsim</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="Run">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QTabWidget" name="mainTabs">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>520</y>
-      <width>101</width>
-      <height>31</height>
+      <x>680</x>
+      <y>0</y>
+      <width>191</width>
+      <height>601</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Run</string>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Editor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
-    <property name="autoDefault">
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Main Editor&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="autoFillBackground">
      <bool>false</bool>
     </property>
-   </widget>
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>691</width>
-      <height>521</height>
-     </rect>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <property name="documentMode">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="registersTab">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Registers</string>
      </attribute>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QLineEdit" name="pcEdit">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>30</x>
         <y>0</y>
-        <width>691</width>
-        <height>491</height>
+        <width>141</width>
+        <height>21</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>691</width>
-        <height>192</height>
-       </size>
+     </widget>
+     <widget class="QLabel" name="pcLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>16</width>
+        <height>21</height>
+       </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Source Code Pro</family>
-        <pointsize>10</pointsize>
-       </font>
+      <property name="text">
+       <string>PC:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="memoryTab">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Memory View</string>
      </attribute>
     </widget>
    </widget>
@@ -83,22 +101,38 @@
      <rect>
       <x>0</x>
       <y>520</y>
-      <width>591</width>
-      <height>111</height>
+      <width>681</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="placeholderText">
      <string extracomment="Output"/>
     </property>
    </widget>
-   <widget class="QListView" name="registersList">
+   <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>20</y>
-      <width>181</width>
-      <height>531</height>
+      <x>0</x>
+      <y>0</y>
+      <width>681</width>
+      <height>521</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;Consolas&quot;;
+</string>
+    </property>
+    <property name="acceptRichText">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
@@ -110,6 +144,9 @@
      <width>873</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <widget class="QMenu" name="menuSRCsim">
     <property name="title">
@@ -139,7 +176,30 @@
    <addaction name="menuDebug"/>
    <addaction name="menuAbout_2"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">background-color:  rgb(50, 50, 50)</string>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="toolRun"/>
+   <addaction name="actionmWord"/>
+  </widget>
   <action name="actionFile">
    <property name="text">
     <string>New</string>
@@ -155,7 +215,33 @@
     <string>Open</string>
    </property>
   </action>
+  <action name="toolRun">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/run</normaloff>:/run</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+   <property name="iconText">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionmWord">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/mTool</normaloff>:/mTool</iconset>
+   </property>
+   <property name="text">
+    <string>mWord</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -21,7 +21,11 @@ public:
 
 
 private slots:
-    void on_Run_clicked();
+
+    void on_pcEdit_editingFinished();
+
+
+    void on_toolRun_triggered();
 
 private:
     Ui::MainWindow *ui;

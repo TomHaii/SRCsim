@@ -22,6 +22,7 @@ public:
 
 	void connectBus(Bus* b) { bus = b; }
 
+    void reset_registers();
 	//FOR DEBUGGING ONLY
 	void print_registers();
 
