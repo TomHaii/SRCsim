@@ -198,6 +198,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="toolRun"/>
+   <addaction name="actionReset"/>
    <addaction name="actionmWord"/>
   </widget>
   <action name="actionFile">
@@ -237,6 +238,15 @@
    </property>
    <property name="text">
     <string>mWord</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/reset</normaloff>:/reset</iconset>
+   </property>
+   <property name="text">
+    <string>Reset</string>
    </property>
   </action>
  </widget>

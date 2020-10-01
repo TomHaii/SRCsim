@@ -28,3 +28,8 @@ void MainWindow::on_toolRun_triggered()
     if(text != "")
         assm->parse(text.toStdString());
 }
+
+void MainWindow::on_actionReset_triggered()
+{
+    assm.reset();
+}

@@ -27,6 +27,8 @@ private slots:
 
     void on_toolRun_triggered();
 
+    void on_actionReset_triggered();
+
 private:
     Ui::MainWindow *ui;
     std::shared_ptr<Assembler> assm;
