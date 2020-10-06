@@ -23,14 +23,15 @@ public:
 	void connectBus(Bus* b) { bus = b; }
 
     void reset_registers();
+
 	//FOR DEBUGGING ONLY
 	void print_registers();
 
+    std::array<signed int, 32> registers;
 	uint32_t pc = 0x00000000;
 	uint32_t nPc = 0x00000004;
 private:
 	
-	std::array<signed int, 32> registers;
 	Bus* bus = nullptr;
 
 	

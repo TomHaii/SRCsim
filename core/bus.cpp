@@ -15,12 +15,20 @@ Bus::~Bus()
 {
 }
 
-void Bus::reset(){
-    std::map<uint32_t, uint8_t>::iterator it;
-    for (it = ram.begin(); it != ram.end(); it++) {
-        ram.erase(it);
-    }
+void Bus::reset_p(){
+    cpu.pc = 0x00000000;
+    cpu.nPc = 0x00000004;
+    ram.clear();
     cpu.reset_registers();
+}
+
+unsigned int Bus::get_register(int index){
+    return cpu.registers[index];
+}
+
+unsigned int Bus::get_pc()
+{
+    return cpu.pc;
 }
 
 void Bus::write8(uint32_t addr, uint8_t data)
@@ -92,7 +100,7 @@ void Bus::run()
 {
 	
 	//test 1
-    write32(100, 100);
+   // write32(100, 100);
     //write32(0x00000000,0x08400064); //ld r1, 100
     //write32(0x00000004,0xa8820001); //andi r2,r1,1
     //write32(0x00000008,0x68c3ffff); //addi r3,r1, -1
@@ -103,8 +111,8 @@ void Bus::run()
     //write32(0x0000001c,0x19000064); //st r4, 100
     //write32(0x00000020,0xf8000000); //stop
 	
-    write32(200, 17);
-    write32(204, 4);
+    //write32(200, 17);
+   // write32(204, 4);
 //	write32(0x00000000, 0x084000c8); //ld r1, 200
 //	write32(0x00000004, 0x088000cc); //ld r2,204
 //	write32(0x00000008, 0x28c00000); //la r3,0
@@ -124,7 +132,7 @@ void Bus::run()
 	}
 	cpu.print_registers();
 	//test 1
-    print_memory(100);
+   // print_memory(100);
 	//test 2
 
     //print_memory(212); // should be 1

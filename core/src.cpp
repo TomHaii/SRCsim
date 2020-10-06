@@ -13,8 +13,9 @@ SRC::~SRC()
 }
 
 void SRC::reset_registers(){
-    for(auto &i : registers) i = 0x00000000;
+    for(unsigned int i = 0; i < registers.size(); i++) registers[i] = 0;
 }
+
 
 void SRC::execute(uint32_t li)
 {

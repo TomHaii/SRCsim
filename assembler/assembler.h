@@ -51,7 +51,11 @@ public:
 
     void assemble();
     void parse(std::string instr);
-
+    void reset_program();
+    unsigned int print_memory(uint32_t address);
+    void write_to_memory(uint32_t address, uint32_t val);
+    unsigned int p_register(int index);
+    unsigned int p_pc();
 
 private:
     uint32_t mWord_instruction();

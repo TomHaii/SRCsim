@@ -29,8 +29,13 @@ private slots:
 
     void on_actionReset_triggered();
 
+    void print_registers();
+    void on_write_memory_button_clicked();
+
+    void on_read_memory_button_clicked();
+
 private:
     Ui::MainWindow *ui;
-    std::shared_ptr<Assembler> assm;
+    Assembler * assm;
 };
 #endif // MAINWINDOW_H

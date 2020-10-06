@@ -29,8 +29,10 @@ public:
     uint16_t read16(uint32_t addr);
     uint8_t read8(uint32_t addr);
 
-    void reset();
+    void reset_p();
     void mod_pc(uint32_t amount);
+    unsigned int get_register(int index);
+    unsigned int get_pc();
 	//for debugging
 	void print_memory(uint32_t addr);
     void run();

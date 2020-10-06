@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>873</width>
-    <height>688</height>
+    <width>1080</width>
+    <height>1057</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1080</width>
+    <height>1057</height>
+   </size>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
@@ -28,8 +34,8 @@
      <rect>
       <x>680</x>
       <y>0</y>
-      <width>191</width>
-      <height>601</height>
+      <width>401</width>
+      <height>931</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -45,7 +51,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -60,28 +66,587 @@
      <widget class="QLineEdit" name="pcEdit">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>0</y>
+        <x>31</x>
+        <y>1</y>
         <width>141</width>
-        <height>21</height>
+        <height>24</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="pcLabel">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>6</x>
         <y>0</y>
-        <width>16</width>
+        <width>20</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
        <string>PC:</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>314</width>
+        <height>491</height>
+       </rect>
       </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="r0_label">
+         <property name="text">
+          <string>R0:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="r0_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" colspan="2">
+        <widget class="QLabel" name="r1_label">
+         <property name="text">
+          <string>R1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QLineEdit" name="r1_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="r2_label">
+         <property name="text">
+          <string>R2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="r2_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3" colspan="2">
+        <widget class="QLabel" name="r3_label">
+         <property name="text">
+          <string>R3:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="QLineEdit" name="r3_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="r4_label">
+         <property name="text">
+          <string>R4:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="r4_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_10">
+         <property name="text">
+          <string>R5:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLineEdit" name="r5_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="r0_label_12">
+         <property name="text">
+          <string>R6:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="r6_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_9">
+         <property name="text">
+          <string>R7:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5" colspan="2">
+        <widget class="QLineEdit" name="r7_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="r0_label_17">
+         <property name="text">
+          <string>R8:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="r8_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_16">
+         <property name="text">
+          <string>R9:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="5" colspan="2">
+        <widget class="QLineEdit" name="r9_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QLabel" name="r0_label_19">
+         <property name="text">
+          <string>R10:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLineEdit" name="r10_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="3" colspan="3">
+        <widget class="QLabel" name="r0_label_32">
+         <property name="text">
+          <string>R11:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="6">
+        <widget class="QLineEdit" name="r11_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="QLabel" name="r0_label_14">
+         <property name="text">
+          <string>R12:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QLineEdit" name="r12_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="3" colspan="3">
+        <widget class="QLabel" name="r0_label_28">
+         <property name="text">
+          <string>R13:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="6">
+        <widget class="QLineEdit" name="r13_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="r0_label_35">
+         <property name="text">
+          <string>R14:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1" colspan="2">
+        <widget class="QLineEdit" name="r14_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_18">
+         <property name="text">
+          <string>R15:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="5" colspan="2">
+        <widget class="QLineEdit" name="r15_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="r0_label_24">
+         <property name="text">
+          <string>R16:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1" colspan="2">
+        <widget class="QLineEdit" name="r16_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="3">
+        <widget class="QLabel" name="r0_label_20">
+         <property name="text">
+          <string>R17:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="5" colspan="2">
+        <widget class="QLineEdit" name="r17_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="r0_label_15">
+         <property name="text">
+          <string>R18:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1" colspan="2">
+        <widget class="QLineEdit" name="r18_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="3">
+        <widget class="QLabel" name="r0_label_33">
+         <property name="text">
+          <string>R19:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="5" colspan="2">
+        <widget class="QLineEdit" name="r19_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="r0_label_13">
+         <property name="text">
+          <string>R20:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1" colspan="2">
+        <widget class="QLineEdit" name="r20_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="3">
+        <widget class="QLabel" name="r0_label_36">
+         <property name="text">
+          <string>R21:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="4" colspan="3">
+        <widget class="QLineEdit" name="r21_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="r0_label_25">
+         <property name="text">
+          <string>R22:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1" colspan="2">
+        <widget class="QLineEdit" name="r22_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_21">
+         <property name="text">
+          <string>R23:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="5" colspan="2">
+        <widget class="QLineEdit" name="r23_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="r0_label_23">
+         <property name="text">
+          <string>R24:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1" colspan="2">
+        <widget class="QLineEdit" name="r24_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="3">
+        <widget class="QLabel" name="r0_label_27">
+         <property name="text">
+          <string>R25:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="5" colspan="2">
+        <widget class="QLineEdit" name="r25_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="r0_label_22">
+         <property name="text">
+          <string>R26:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1" colspan="2">
+        <widget class="QLineEdit" name="r26_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_26">
+         <property name="text">
+          <string>R27:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="6">
+        <widget class="QLineEdit" name="r27_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="r0_label_31">
+         <property name="text">
+          <string>R28:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="2">
+        <widget class="QLineEdit" name="r28_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="3" colspan="2">
+        <widget class="QLabel" name="r0_label_34">
+         <property name="text">
+          <string>R29:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="5" colspan="2">
+        <widget class="QLineEdit" name="r29_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0">
+        <widget class="QLabel" name="r0_label_29">
+         <property name="text">
+          <string>R30:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="1" colspan="2">
+        <widget class="QLineEdit" name="r30_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="3">
+        <widget class="QLabel" name="r0_label_30">
+         <property name="text">
+          <string>R31:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="5" colspan="2">
+        <widget class="QLineEdit" name="r31_edit">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="memoryTab">
@@ -91,6 +656,84 @@
      <attribute name="title">
       <string>Memory View</string>
      </attribute>
+     <widget class="QPushButton" name="write_memory_button">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>830</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Write</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="read_memory_button">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>830</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Read</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="address_edit">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="mem_value_edit">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="address_label">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>10</y>
+        <width>56</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Address</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="value_label">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>60</y>
+        <width>56</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Value</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QTextEdit" name="outputBox">
@@ -100,9 +743,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>520</y>
+      <y>760</y>
       <width>681</width>
-      <height>91</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="placeholderText">
@@ -115,7 +758,7 @@
       <x>0</x>
       <y>0</y>
       <width>681</width>
-      <height>521</height>
+      <height>761</height>
      </rect>
     </property>
     <property name="font">
@@ -141,8 +784,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>873</width>
-     <height>20</height>
+     <width>1080</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">

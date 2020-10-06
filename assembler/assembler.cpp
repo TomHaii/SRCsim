@@ -32,6 +32,32 @@ void Assembler::parse(std::string instr){
     assemble();
 }
 
+void Assembler::reset_program()
+{
+    s_instructions.clear();
+    bus.reset_p();
+}
+
+unsigned int Assembler::print_memory(uint32_t address)
+{
+    return bus.read32(address);
+}
+
+void Assembler::write_to_memory(uint32_t address, uint32_t val)
+{
+    bus.write32(address, val);
+}
+
+unsigned int Assembler::p_register(int index)
+{
+    return bus.get_register(index);
+}
+
+unsigned int Assembler::p_pc()
+{
+    return bus.get_pc();
+}
+
 uint32_t Assembler::mWord_instruction(){
     std::string name = nInstruction.instr_name;
     if(name == "ld" || name == "st" || name == "la" || name == "addi" || name == "andi" || name == "ori")
