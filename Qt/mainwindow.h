@@ -34,6 +34,8 @@ private slots:
 
     void on_read_memory_button_clicked();
 
+    void on_actionCredits_triggered();
+
 private:
     Ui::MainWindow *ui;
     Assembler * assm;

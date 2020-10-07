@@ -29,6 +29,7 @@ HEADERS += \
     Qt\mainwindow.h
 
 FORMS += \
+    Qt/credits.ui \
     Qt\mainwindow.ui
 
 # Default rules for deployment.

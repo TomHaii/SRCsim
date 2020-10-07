@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "core/bus.h"
 
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -100,5 +102,14 @@ void MainWindow::on_read_memory_button_clicked()
         ui->outputBox->append("Value at address " + address + " is " + QString::number(assm->print_memory(address_val)));
     else
         ui->outputBox->append("Please insert a valid address");
+
+}
+
+void MainWindow::on_actionCredits_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Made By Tom Levy");
+    msgBox.addButton(QMessageBox::Close);
+    msgBox.exec();
 
 }
